@@ -1,13 +1,13 @@
 {
-  "name": "react-docgen",
-  "version": "5.2.0",
+  "name": "@motiz88/react-native-docgen",
+  "version": "0.0.0",
   "description": "A CLI and toolkit to extract information from React components for documentation generation.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/reactjs/react-docgen.git"
+    "url": "git+https://github.com/motiz88/react-docgen.git"
   },
   "bugs": {
-    "url": "https://github.com/reactjs/react-docgen/issues"
+    "url": "https://github.com/motiz88/react-docgen/issues"
   },
   "bin": {
     "react-docgen": "bin/react-docgen.js"
