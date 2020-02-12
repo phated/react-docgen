@@ -1,4 +1,4 @@
-const { NodePath } = require('ast-types');
+const { NodePath } = require('@motiz88/ast-types');
 
 module.exports = {
   print(val, serialize) {

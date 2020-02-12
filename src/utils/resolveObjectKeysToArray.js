@@ -7,7 +7,7 @@
  * @flow
  */
 
-import { ASTNode, NodePath, builders, namedTypes as t } from 'ast-types';
+import { ASTNode, NodePath, builders, namedTypes as t } from '@motiz88/ast-types';
 import resolveToValue from './resolveToValue';
 
 function isObjectKeysCall(node: ASTNode): boolean {

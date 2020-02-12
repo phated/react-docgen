@@ -7,7 +7,7 @@
  * @flow
  */
 
-import { namedTypes as t } from 'ast-types';
+import { namedTypes as t } from '@motiz88/ast-types';
 import isReactModuleName from './isReactModuleName';
 import match from './match';
 import resolveToModule from './resolveToModule';

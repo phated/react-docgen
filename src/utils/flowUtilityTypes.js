@@ -6,7 +6,7 @@
  *
  * @flow
  */
-import { namedTypes as t } from 'ast-types';
+import { namedTypes as t } from '@motiz88/ast-types';
 
 const supportedUtilityTypes = new Set(['$Exact', '$ReadOnly']);
 

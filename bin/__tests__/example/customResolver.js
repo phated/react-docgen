@@ -16,7 +16,7 @@ const code = `
   })
 `;
 
-const { NodePath } = require('ast-types');
+const { NodePath } = require('@motiz88/ast-types');
 
 module.exports = function(ast, parser) {
   return new NodePath(parser.parse(code)).get(

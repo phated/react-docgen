@@ -7,7 +7,7 @@
  * @flow
  */
 
-import { NodePath, builders, namedTypes as t } from 'ast-types';
+import { NodePath, builders, namedTypes as t } from '@motiz88/ast-types';
 import getMemberExpressionRoot from './getMemberExpressionRoot';
 import getPropertyValuePath from './getPropertyValuePath';
 import { Array as toArray } from './expressionTo';

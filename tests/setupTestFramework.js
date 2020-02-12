@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-const types = require('ast-types');
+const types = require('@motiz88/ast-types');
 const diff = require('jest-diff');
 const utils = require('jest-matcher-utils');
 

@@ -9,7 +9,7 @@
 
 /*eslint no-use-before-define: 0*/
 
-import { namedTypes as t } from 'ast-types';
+import { namedTypes as t } from '@motiz88/ast-types';
 import { getDocblock } from '../utils/docblock';
 import getMembers from './getMembers';
 import getPropertyName from './getPropertyName';

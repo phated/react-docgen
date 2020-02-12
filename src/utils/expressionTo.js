@@ -9,7 +9,7 @@
 
 /*eslint no-loop-func: 0, no-use-before-define: 0*/
 
-import { namedTypes as t } from 'ast-types';
+import { namedTypes as t } from '@motiz88/ast-types';
 import resolveToValue from './resolveToValue';
 
 /**

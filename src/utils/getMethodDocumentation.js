@@ -7,7 +7,7 @@
  * @flow
  */
 
-import { namedTypes as t } from 'ast-types';
+import { namedTypes as t } from '@motiz88/ast-types';
 import { getDocblock } from './docblock';
 import getFlowType from './getFlowType';
 import getTSType from './getTSType';

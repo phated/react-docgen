@@ -7,7 +7,7 @@
  * @flow
  */
 
-import { namedTypes as t } from 'ast-types';
+import { namedTypes as t } from '@motiz88/ast-types';
 
 /**
  * Returns the path to the first part of the MemberExpression. I.e. given a

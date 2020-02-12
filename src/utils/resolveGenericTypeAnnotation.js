@@ -7,7 +7,7 @@
  * @flow
  */
 
-import { namedTypes as t } from 'ast-types';
+import { namedTypes as t } from '@motiz88/ast-types';
 import isUnreachableFlowType from '../utils/isUnreachableFlowType';
 import resolveToValue from '../utils/resolveToValue';
 import { unwrapUtilityType } from './flowUtilityTypes';

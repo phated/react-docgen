@@ -6,7 +6,7 @@
  *
  */
 
-import { builders } from 'ast-types';
+import { builders } from '@motiz88/ast-types';
 import * as utils from '../../../tests/utils';
 import resolveObjectValuesToArray from '../resolveObjectValuesToArray';
 

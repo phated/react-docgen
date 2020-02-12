@@ -7,7 +7,7 @@
  * @flow
  */
 
-import { visit } from 'ast-types';
+import { visit } from '@motiz88/ast-types';
 
 type Visitor = (path: NodePath) => any;
 

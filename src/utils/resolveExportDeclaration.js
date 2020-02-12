@@ -7,7 +7,7 @@
  * @flow
  */
 
-import { namedTypes as t } from 'ast-types';
+import { namedTypes as t } from '@motiz88/ast-types';
 import resolveToValue from './resolveToValue';
 
 export default function resolveExportDeclaration(

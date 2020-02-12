@@ -2,7 +2,7 @@
  * Helper methods for tests.
  */
 
-import { NodePath } from 'ast-types';
+import { NodePath } from '@motiz88/ast-types';
 import buildParser from '../src/babelParser';
 
 function stringify(value) {

@@ -7,7 +7,7 @@
  * @flow
  */
 
-import {namedTypes as t, NodePath} from 'ast-types';
+import {namedTypes as t, NodePath} from '@motiz88/ast-types';
 import { traverseShallow } from './traverse';
 import resolve from 'resolve';
 import { dirname } from 'path';

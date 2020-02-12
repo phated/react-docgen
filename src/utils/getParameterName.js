@@ -7,7 +7,7 @@
  * @flow
  */
 
-import { namedTypes as t } from 'ast-types';
+import { namedTypes as t } from '@motiz88/ast-types';
 import printValue from './printValue';
 
 export default function getParameterName(parameterPath: NodePath): string {

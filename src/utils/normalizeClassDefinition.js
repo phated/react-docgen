@@ -7,7 +7,7 @@
  * @flow
  */
 
-import { builders, namedTypes as t, visit } from 'ast-types';
+import { builders, namedTypes as t, visit } from '@motiz88/ast-types';
 import getMemberExpressionRoot from '../utils/getMemberExpressionRoot';
 import getMembers from '../utils/getMembers';
 

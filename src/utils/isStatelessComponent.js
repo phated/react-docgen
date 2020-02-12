@@ -7,7 +7,7 @@
  * @flow
  */
 
-import { namedTypes as t, visit } from 'ast-types';
+import { namedTypes as t, visit } from '@motiz88/ast-types';
 import getPropertyValuePath from './getPropertyValuePath';
 import isReactComponentClass from './isReactComponentClass';
 import isReactCreateClassCall from './isReactCreateClassCall';

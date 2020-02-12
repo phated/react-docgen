@@ -7,7 +7,7 @@
  * @flow
  */
 
-import { namedTypes as t } from 'ast-types';
+import { namedTypes as t } from '@motiz88/ast-types';
 import isReactCreateClassCall from './isReactCreateClassCall';
 import isReactForwardRefCall from './isReactForwardRefCall';
 import resolveToValue from './resolveToValue';

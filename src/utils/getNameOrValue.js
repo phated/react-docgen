@@ -7,7 +7,7 @@
  * @flow
  */
 
-import { namedTypes as t } from 'ast-types';
+import { namedTypes as t } from '@motiz88/ast-types';
 
 /**
  * If node is an Identifier, it returns its name. If it is a literal, it returns

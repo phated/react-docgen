@@ -6,7 +6,7 @@
  *
  * @flow
  */
-import { namedTypes as t } from 'ast-types';
+import { namedTypes as t } from '@motiz88/ast-types';
 import getClassMemberValuePath from './getClassMemberValuePath';
 import getMemberExpressionValuePath from './getMemberExpressionValuePath';
 import getPropertyValuePath from './getPropertyValuePath';

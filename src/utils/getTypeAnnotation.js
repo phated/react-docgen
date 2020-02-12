@@ -7,7 +7,7 @@
  * @flow
  */
 
-import { namedTypes as t } from 'ast-types';
+import { namedTypes as t } from '@motiz88/ast-types';
 
 function hasTypeAnnotation(path: NodePath): boolean {
   return !!path.node.typeAnnotation;
