@@ -1,6 +1,6 @@
 {
   "name": "@motiz88/react-native-docgen",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A CLI and toolkit to extract information from React components for documentation generation.",
   "repository": {
     "type": "git",
