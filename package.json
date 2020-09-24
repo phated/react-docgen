@@ -1,7 +1,7 @@
 {
-  "name": "react-docgen",
-  "version": "5.3.0",
-  "description": "A CLI and toolkit to extract information from React components for documentation generation.",
+  "name": "@phated/react-docgen",
+  "version": "0.1.0",
+  "description": "Published fork for https://github.com/reactjs/react-docgen/pull/464",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/reactjs/react-docgen.git"
