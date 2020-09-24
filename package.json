@@ -13,7 +13,7 @@
     "react-docgen": "bin/react-docgen.js"
   },
   "files": [
-    "bin",
+    "bin/react-docgen.js",
     "dist"
   ],
   "engines": {
