@@ -102,7 +102,10 @@ function handleKeysHelper(
       return {
         name: 'union',
         raw: printValue(path),
-        elements: keys.map(key => ({ name: 'literal', value: quoteLiteral(key) })),
+        elements: keys.map(key => ({
+          name: 'literal',
+          value: quoteLiteral(key),
+        })),
       };
     }
   }
@@ -130,13 +133,30 @@ function handleValuesHelper(
         raw: printValue(path),
         elements: propMap.properties.map(prop => ({
           name: 'literal',
-          value: quoteLiteral(propMap.values[prop])
+          value: quoteLiteral(propMap.values[prop]),
         })),
       };
     }
   }
 
   return null;
+}
+
+function handleReadOnlyArrayHelper(
+  path: NodePath,
+  typeParams: ?TypeParameters,
+  importer: Importer,
+): ?FlowElementsType {
+  let value = path.get('typeParameters', 'params', 0);
+  if (t.TypeofTypeAnnotation.check(value.node)) {
+    value = value.get('argument', 'id');
+  }
+
+  return {
+    name: 'Array',
+    elements: [getFlowTypeWithResolvedTypes(value, typeParams, importer)],
+    raw: printValue(path),
+  };
 }
 
 function handleArrayTypeAnnotation(
@@ -168,6 +188,10 @@ function handleGenericTypeAnnotation(
 
   if (path.node.id.name === '$Values' && path.node.typeParameters) {
     return handleValuesHelper(path, importer);
+  }
+
+  if (path.node.id.name === '$ReadOnlyArray' && path.node.typeParameters) {
+    return handleReadOnlyArrayHelper(path, typeParams, importer);
   }
 
   let type: FlowTypeDescriptor;

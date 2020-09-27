@@ -1363,8 +1363,8 @@ describe('getFlowType', () => {
     expect(getFlowType(typePath, null, noopImporter)).toEqual({
       name: 'union',
       elements: [
-        { name: 'literal', value: "1" },
-        { name: 'literal', value: "2" },
+        { name: 'literal', value: '1' },
+        { name: 'literal', value: '2' },
       ],
       raw: '$Values<typeof CONTENTS>',
     });
@@ -1428,6 +1428,55 @@ describe('getFlowType', () => {
         { name: 'literal', value: "'🍌'" },
       ],
       raw: '$Values<CONTENTS>',
+    });
+  });
+
+  it('detects $ReadOnlyArray type', () => {
+    let typePath = expression('x: $ReadOnlyArray<number>')
+      .get('typeAnnotation')
+      .get('typeAnnotation');
+    expect(getFlowType(typePath, null, noopImporter)).toEqual({
+      name: 'Array',
+      elements: [{ name: 'number' }],
+      raw: '$ReadOnlyArray<number>',
+    });
+
+    typePath = expression('x: $ReadOnlyArray<{| abc: string |}>')
+      .get('typeAnnotation')
+      .get('typeAnnotation');
+    expect(getFlowType(typePath, null, noopImporter)).toEqual({
+      name: 'Array',
+      elements: [
+        {
+          name: 'signature',
+          raw: '{| abc: string |}',
+          signature: {
+            properties: [
+              {
+                key: 'abc',
+                value: {
+                  name: 'string',
+                  required: true,
+                },
+              },
+            ],
+          },
+          type: 'object',
+        },
+      ],
+      raw: '$ReadOnlyArray<{| abc: string |}>',
+    });
+  });
+
+  it('resolves imported types used for arrays', () => {
+    const typePath = statement(`
+      (x: $ReadOnlyArray<xyz>);
+      import type { xyz } from 'xyz';
+    `).get('expression', 'typeAnnotation', 'typeAnnotation');
+    expect(getFlowType(typePath, null, mockImporter)).toEqual({
+      name: 'Array',
+      elements: [{ name: 'string' }],
+      raw: '$ReadOnlyArray<xyz>',
     });
   });
 });
