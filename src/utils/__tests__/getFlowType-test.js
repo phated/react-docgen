@@ -1028,6 +1028,52 @@ describe('getFlowType', () => {
     });
   });
 
+  it('resolves $Keys without strings to union', () => {
+    const typePath = statement(`
+      var x: $Keys<typeof CONTENTS> = 2;
+      const CONTENTS = {
+        apple: '🍎',
+        banana: '🍌',
+      };
+    `)
+      .get('declarations', 0)
+      .get('id')
+      .get('typeAnnotation')
+      .get('typeAnnotation');
+
+    expect(getFlowType(typePath, null, noopImporter)).toEqual({
+      name: 'union',
+      elements: [
+        { name: 'literal', value: "'apple'" },
+        { name: 'literal', value: "'banana'" },
+      ],
+      raw: '$Keys<typeof CONTENTS>',
+    });
+  });
+
+  it('resolves $Keys with numbers to union', () => {
+    const typePath = statement(`
+      var x: $Keys<typeof CONTENTS> = 2;
+      const CONTENTS = {
+        1: '🍎',
+        2: '🍌',
+      };
+    `)
+      .get('declarations', 0)
+      .get('id')
+      .get('typeAnnotation')
+      .get('typeAnnotation');
+
+    expect(getFlowType(typePath, null, noopImporter)).toEqual({
+      name: 'union',
+      elements: [
+        { name: 'literal', value: "'1'" },
+        { name: 'literal', value: "'2'" },
+      ],
+      raw: '$Keys<typeof CONTENTS>',
+    });
+  });
+
   it('resolves $Keys without typeof to union', () => {
     const typePath = statement(`
       var x: $Keys<CONTENTS> = 2;
@@ -1063,8 +1109,8 @@ describe('getFlowType', () => {
     expect(getFlowType(typePath, null, noopImporter)).toEqual({
       name: 'union',
       elements: [
-        { name: 'literal', value: 'apple' },
-        { name: 'literal', value: 'banana' },
+        { name: 'literal', value: "'apple'" },
+        { name: 'literal', value: "'banana'" },
       ],
       raw: '$Keys<{| apple: string, banana: string |}>',
     });
@@ -1083,9 +1129,9 @@ describe('getFlowType', () => {
     expect(getFlowType(typePath, null, noopImporter)).toEqual({
       name: 'union',
       elements: [
-        { name: 'literal', value: 'apple' },
-        { name: 'literal', value: 'banana' },
-        { name: 'literal', value: 'orange' },
+        { name: 'literal', value: "'apple'" },
+        { name: 'literal', value: "'banana'" },
+        { name: 'literal', value: "'orange'" },
       ],
       raw: '$Keys<{| apple: string, banana: string, ...OtherFruits |}>',
     });
@@ -1140,9 +1186,9 @@ describe('getFlowType', () => {
     expect(getFlowType(typePath, null, mockImporter)).toEqual({
       name: 'union',
       elements: [
-        { name: 'literal', value: 'apple' },
-        { name: 'literal', value: 'banana' },
-        { name: 'literal', value: 'orange' },
+        { name: 'literal', value: "'apple'" },
+        { name: 'literal', value: "'banana'" },
+        { name: 'literal', value: "'orange'" },
       ],
       raw: '$Keys<{| apple: string, banana: string, ...OtherFruits |}>',
     });

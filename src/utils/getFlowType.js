@@ -55,6 +55,18 @@ const namedTypes = {
   TypeofTypeAnnotation: handleTypeofTypeAnnotation,
 };
 
+function isQuoted(value: string): boolean {
+  return /^['"].*['"]/.test(value);
+}
+
+function quoteLiteral(value) {
+  if (typeof value === 'string' && !isQuoted(value)) {
+    return `'${value}'`;
+  }
+
+  return `${value}`;
+}
+
 function getFlowTypeWithRequirements(
   path: NodePath,
   typeParams: ?TypeParameters,
@@ -89,7 +101,7 @@ function handleKeysHelper(
       return {
         name: 'union',
         raw: printValue(path),
-        elements: keys.map(key => ({ name: 'literal', value: key })),
+        elements: keys.map(key => ({ name: 'literal', value: quoteLiteral(key) })),
       };
     }
   }
