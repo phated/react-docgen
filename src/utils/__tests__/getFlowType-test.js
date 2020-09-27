@@ -1323,4 +1323,111 @@ describe('getFlowType', () => {
       raw: '{ subAction: SubAction }',
     });
   });
+
+  it('resolves $Values to union', () => {
+    const typePath = statement(`
+      var x: $Values<typeof CONTENTS> = 2;
+      const CONTENTS = {
+        'apple': '🍎',
+        'banana': '🍌',
+      };
+    `)
+      .get('declarations', 0)
+      .get('id')
+      .get('typeAnnotation')
+      .get('typeAnnotation');
+
+    expect(getFlowType(typePath, null, noopImporter)).toEqual({
+      name: 'union',
+      elements: [
+        { name: 'literal', value: "'🍎'" },
+        { name: 'literal', value: "'🍌'" },
+      ],
+      raw: '$Values<typeof CONTENTS>',
+    });
+  });
+
+  it('resolves $Values with numbers to union', () => {
+    const typePath = statement(`
+      var x: $Values<typeof CONTENTS> = 2;
+      const CONTENTS = {
+        one: 1,
+        two: 2,
+      };
+    `)
+      .get('declarations', 0)
+      .get('id')
+      .get('typeAnnotation')
+      .get('typeAnnotation');
+
+    expect(getFlowType(typePath, null, noopImporter)).toEqual({
+      name: 'union',
+      elements: [
+        { name: 'literal', value: "1" },
+        { name: 'literal', value: "2" },
+      ],
+      raw: '$Values<typeof CONTENTS>',
+    });
+  });
+
+  it('resolves $Values without typeof to union', () => {
+    const typePath = statement(`
+      var x: $Values<CONTENTS> = 2;
+      const CONTENTS = {
+        'apple': '🍎',
+        'banana': '🍌',
+      };
+    `)
+      .get('declarations', 0)
+      .get('id')
+      .get('typeAnnotation')
+      .get('typeAnnotation');
+
+    expect(getFlowType(typePath, null, noopImporter)).toEqual({
+      name: 'union',
+      elements: [
+        { name: 'literal', value: "'🍎'" },
+        { name: 'literal', value: "'🍌'" },
+      ],
+      raw: '$Values<CONTENTS>',
+    });
+  });
+
+  it('resolves $Values to imported types', () => {
+    let typePath = statement(`
+      var x: $Values<typeof CONTENTS> = 2;
+      import CONTENTS from 'fruits';
+    `)
+      .get('declarations', 0)
+      .get('id')
+      .get('typeAnnotation')
+      .get('typeAnnotation');
+
+    expect(getFlowType(typePath, null, mockImporter)).toEqual({
+      name: 'union',
+      elements: [
+        { name: 'literal', value: "'🍎'" },
+        { name: 'literal', value: "'🍌'" },
+      ],
+      raw: '$Values<typeof CONTENTS>',
+    });
+
+    typePath = statement(`
+      var x: $Values<CONTENTS> = 2;
+      import CONTENTS from 'fruits';
+    `)
+      .get('declarations', 0)
+      .get('id')
+      .get('typeAnnotation')
+      .get('typeAnnotation');
+
+    expect(getFlowType(typePath, null, mockImporter)).toEqual({
+      name: 'union',
+      elements: [
+        { name: 'literal', value: "'🍎'" },
+        { name: 'literal', value: "'🍌'" },
+      ],
+      raw: '$Values<CONTENTS>',
+    });
+  });
 });

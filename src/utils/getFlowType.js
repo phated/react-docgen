@@ -13,6 +13,7 @@ import printValue from './printValue';
 import getTypeAnnotation from '../utils/getTypeAnnotation';
 import resolveToValue from '../utils/resolveToValue';
 import { resolveObjectToNameArray } from '../utils/resolveObjectKeysToArray';
+import { resolveObjectToPropMap } from '../utils/resolveObjectValuesToArray';
 import getTypeParameters, {
   type TypeParameters,
 } from '../utils/getTypeParameters';
@@ -109,6 +110,35 @@ function handleKeysHelper(
   return null;
 }
 
+function handleValuesHelper(
+  path: NodePath,
+  importer: Importer,
+): ?FlowElementsType {
+  let value = path.get('typeParameters', 'params', 0);
+  if (t.TypeofTypeAnnotation.check(value.node)) {
+    value = value.get('argument', 'id');
+  } else if (!t.ObjectTypeAnnotation.check(value.node)) {
+    value = value.get('id');
+  }
+  const resolvedPath = resolveToValue(value, importer);
+  if (resolvedPath && t.ObjectExpression.check(resolvedPath.node)) {
+    const propMap = resolveObjectToPropMap(resolvedPath, importer, true);
+
+    if (propMap) {
+      return {
+        name: 'union',
+        raw: printValue(path),
+        elements: propMap.properties.map(prop => ({
+          name: 'literal',
+          value: quoteLiteral(propMap.values[prop])
+        })),
+      };
+    }
+  }
+
+  return null;
+}
+
 function handleArrayTypeAnnotation(
   path: NodePath,
   typeParams: ?TypeParameters,
@@ -134,6 +164,10 @@ function handleGenericTypeAnnotation(
 ): ?FlowTypeDescriptor {
   if (path.node.id.name === '$Keys' && path.node.typeParameters) {
     return handleKeysHelper(path, importer);
+  }
+
+  if (path.node.id.name === '$Values' && path.node.typeParameters) {
+    return handleValuesHelper(path, importer);
   }
 
   let type: FlowTypeDescriptor;
