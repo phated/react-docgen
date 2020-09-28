@@ -1,6 +1,6 @@
 {
   "name": "@phated/react-docgen",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Published fork for https://github.com/reactjs/react-docgen/pull/464",
   "repository": {
     "type": "git",
